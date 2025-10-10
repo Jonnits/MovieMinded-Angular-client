@@ -1,0 +1,170 @@
+<div class="profile-container">
+  <div class="header-section">
+    <h1>User Profile</h1>
+    <button mat-raised-button color="primary" (click)="goToMovies()" class="back-button">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+  </div>
+  
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <mat-card-title>Profile Details</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form class="profile-form">
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="userData.Username"
+            placeholder="Username"
+            name="Username"
+            required
+          >
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="userData.Email"
+            placeholder="Email"
+            name="Email"
+            type="email"
+            required
+          >
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="userData.Birthday"
+            placeholder="Birthday"
+            name="Birthday"
+            type="date"
+          >
+        </mat-form-field>
+      </form>
+      
+      <!-- Password Confirmation Section -->
+      <div *ngIf="showPasswordField" class="password-confirmation">
+        <h3>Confirm Your Password</h3>
+        <p>Please enter your current password to confirm changes:</p>
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="passwordConfirmation"
+            placeholder="Current Password"
+            name="PasswordConfirmation"
+            type="password"
+            required
+          >
+        </mat-form-field>
+        <div class="password-actions">
+          <button mat-button (click)="cancelPasswordConfirmation()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="showPasswordConfirmation()" *ngIf="!showPasswordField">
+        Update Profile
+      </button>
+      <button mat-raised-button color="primary" (click)="updateUser()" *ngIf="showPasswordField">
+        Confirm Update
+      </button>
+      <button mat-raised-button color="warn" (click)="showPasswordConfirmation()" *ngIf="!showPasswordField">
+        Delete Account
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteUser()" *ngIf="showPasswordField">
+        Confirm Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Favorite Movies Section -->
+  <mat-card class="favorites-card">
+    <mat-card-header>
+      <mat-card-title>Favorite Movies</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div *ngIf="loadingFavorites" class="loading-favorites">
+        <p>Loading your favorite movies...</p>
+      </div>
+      
+      <div *ngIf="!loadingFavorites && favoriteMovies.length === 0" class="no-favorites">
+        <p>You haven't added any movies to your favorites yet.</p>
+        <p>Go to the movies page and click the heart icon to add some!</p>
+      </div>
+      
+      <div *ngIf="!loadingFavorites && favoriteMovies.length > 0" class="favorites-grid">
+        <mat-card
+          *ngFor="let movie of favoriteMovies; trackBy: trackByMovieId"
+          class="movie-card"
+          [class.expanded]="isExpanded(movie._id)"
+          (click)="openSynopsisDialog(movie)">
+
+          <!-- Compact View (Thumbnail) -->
+          <div class="movie-thumbnail" *ngIf="!isExpanded(movie._id)">
+            <img [src]="movie.ImagePath" [alt]="movie.Title" class="thumbnail-image">
+            <div class="thumbnail-overlay">
+              <h3 class="thumbnail-title">{{ movie.Title }}</h3>
+              <p class="thumbnail-director">{{ movie.Director?.Name }}</p>
+              <div class="thumbnail-actions">
+                <button mat-icon-button color="warn" (click)="toggleFavorite(movie); $event.stopPropagation()" class="favorite-btn" matTooltip="Toggle Favorites">
+                  <mat-icon [class.favorite-filled]="isFavorite(movie.Title)">favorite</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openSynopsisDialog(movie); $event.stopPropagation()" class="view-more-btn" matTooltip="View Details">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openDirectorDialog(movie.Director); $event.stopPropagation()" class="director-btn" matTooltip="Director Info">
+                  <mat-icon>person</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openGenreDialog(movie.Genre); $event.stopPropagation()" class="genre-btn" matTooltip="Genre Info">
+                  <mat-icon>category</mat-icon>
+                </button>
+                <mat-icon class="expand-icon">expand_more</mat-icon>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expanded View (Full Details) -->
+          <div class="movie-expanded" *ngIf="isExpanded(movie._id)">
+            <img mat-card-image [src]="movie.ImagePath" [alt]="movie.Title" class="expanded-image">
+            <mat-card-header>
+              <mat-card-title>{{ movie.Title }}</mat-card-title>
+              <mat-card-subtitle>Directed by: {{ movie.Director?.Name }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p><strong>Genre:</strong> {{ movie.Genre?.Name }}</p>
+              <p><strong>Description:</strong> {{ movie.Description }}</p>
+              <p *ngIf="movie.Director?.Bio"><strong>Director Bio:</strong> {{ movie.Director.Bio }}</p>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-button color="primary" (click)="openGenreDialog(movie.Genre); $event.stopPropagation()">
+                Genre Details
+              </button>
+              <button mat-button color="primary" (click)="openDirectorDialog(movie.Director); $event.stopPropagation()">
+                Director Details
+              </button>
+              <button mat-button color="primary" (click)="openSynopsisDialog(movie); $event.stopPropagation()">
+                Full Synopsis
+              </button>
+              <button mat-icon-button color="warn" (click)="toggleFavorite(movie); $event.stopPropagation()">
+                <mat-icon [class.favorite-filled]="isFavorite(movie.Title)">favorite</mat-icon>
+              </button>
+              <button mat-icon-button (click)="toggleCard(movie._id); $event.stopPropagation()">
+                <mat-icon>expand_less</mat-icon>
+              </button>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
