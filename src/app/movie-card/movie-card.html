@@ -1,0 +1,83 @@
+<div class="movies-container">
+  <div class="header-section">
+    <h1>All Movies</h1>
+    <button mat-raised-button color="primary" (click)="goToProfile()" class="profile-button">
+      <mat-icon>person</mat-icon>
+      Profile
+    </button>
+  </div>
+  
+  <div *ngIf="loading" class="loading">
+    <p>Loading movies...</p>
+  </div>
+  
+  <div *ngIf="!loading && movies.length === 0" class="no-movies">
+    <p>No movies found.</p>
+  </div>
+  
+  <div *ngIf="!loading && movies.length > 0" class="movies-grid">
+        <mat-card
+          *ngFor="let movie of movies; trackBy: trackByMovieId"
+          class="movie-card"
+          [class.expanded]="isExpanded(movie._id)"
+          (click)="openSynopsisDialog(movie)">
+      
+      <!-- Compact View (Thumbnail) -->
+      <div class="movie-thumbnail" *ngIf="!isExpanded(movie._id)">
+        <img [src]="movie.ImagePath" [alt]="movie.Title" class="thumbnail-image">
+        <div class="thumbnail-overlay">
+          <h3 class="thumbnail-title">{{ movie.Title }}</h3>
+          <p class="thumbnail-director">{{ movie.Director?.Name }}</p>
+              <div class="thumbnail-actions">
+                <button mat-icon-button color="warn" (click)="toggleFavorite(movie); $event.stopPropagation()" class="favorite-btn" matTooltip="Toggle Favorites">
+                  <mat-icon [class.favorite-filled]="isFavorite(movie.Title)">favorite</mat-icon>
+                </button>
+            <button mat-icon-button (click)="openSynopsisDialog(movie); $event.stopPropagation()" class="view-more-btn" matTooltip="View Details">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openDirectorDialog(movie.Director); $event.stopPropagation()" class="director-btn" matTooltip="Director Info">
+              <mat-icon>person</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openGenreDialog(movie.Genre); $event.stopPropagation()" class="genre-btn" matTooltip="Genre Info">
+              <mat-icon>category</mat-icon>
+            </button>
+            <mat-icon class="expand-icon">expand_more</mat-icon>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Expanded View (Full Details) -->
+      <div class="movie-expanded" *ngIf="isExpanded(movie._id)">
+        <img mat-card-image [src]="movie.ImagePath" [alt]="movie.Title" class="expanded-image">
+        <mat-card-header>
+          <mat-card-title>{{ movie.Title }}</mat-card-title>
+          <mat-card-subtitle>Directed by: {{ movie.Director?.Name }}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <p><strong>Genre:</strong> {{ movie.Genre?.Name }}</p>
+          <p><strong>Description:</strong> {{ movie.Description }}</p>
+          <p *ngIf="movie.Director?.Bio"><strong>Director Bio:</strong> {{ movie.Director.Bio }}</p>
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="openGenreDialog(movie.Genre); $event.stopPropagation()">
+            Genre Details
+          </button>
+          <button mat-button color="primary" (click)="openDirectorDialog(movie.Director); $event.stopPropagation()">
+            Director Details
+          </button>
+          <button mat-button color="primary" (click)="openSynopsisDialog(movie); $event.stopPropagation()">
+            Full Synopsis
+          </button>
+              <button mat-icon-button color="warn" (click)="toggleFavorite(movie); $event.stopPropagation()">
+                <mat-icon [class.favorite-filled]="isFavorite(movie.Title)">favorite</mat-icon>
+              </button>
+          <button mat-icon-button (click)="toggleCard(movie._id); $event.stopPropagation()">
+            <mat-icon>expand_less</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>
+</div>

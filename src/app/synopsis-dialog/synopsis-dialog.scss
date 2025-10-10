@@ -1,0 +1,31 @@
+.dialog-card {
+  max-width: 500px;
+  max-height: 80vh;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+.movie-poster {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem auto;
+  display: block;
+  text-align: center;
+}
+
+mat-card-content p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.movie-details {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.movie-details p {
+  margin: 0.5rem 0;
+}
