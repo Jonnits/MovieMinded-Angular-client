@@ -200,6 +200,20 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/movies']);
   }
 
+  logout(): void {
+    // Clear user session data
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    
+    // Show logout confirmation
+    this.snackBar.open('Logged out successfully!', 'OK', {
+      duration: 2000
+    });
+    
+    // Navigate to welcome page
+    this.router.navigate(['/welcome']);
+  }
+
   // Movie card interaction methods (same as movie-card component)
   openGenreDialog(genre: any): void {
     this.dialog.open(GenreDialogComponent, {
