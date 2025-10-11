@@ -1,59 +1,167 @@
-# MyFlixAngularClient
+# MovieMinded - Angular Client
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+A full-stack movie application built with Angular 20, featuring user authentication, movie browsing, favorites management, and responsive design with Angular Material.
 
-## Development server
+## 🌟 Live Demo
 
-To start a local development server, run:
+**🔗 [View Live Application](https://jonnits.github.io/MovieMinded-Angular-client/)**
+
+## 📋 Features
+
+### 🔐 User Authentication
+- **User Registration**: Create new accounts with validation
+- **User Login**: Secure authentication with JWT tokens
+- **User Logout**: Complete session management
+- **Profile Management**: View and edit user profiles
+
+### 🎬 Movie Management
+- **Movie Catalog**: Browse a comprehensive collection of movies
+- **Movie Details**: View detailed information including synopsis, director, and genre
+- **Interactive Cards**: Hover effects and responsive movie thumbnails
+- **Search & Filter**: Easy navigation through movie collections
+
+### ❤️ Favorites System
+- **Add to Favorites**: Heart icon to save favorite movies
+- **Remove from Favorites**: Toggle favorite status
+- **Favorites Page**: Dedicated section to view saved movies
+- **Real-time Updates**: Instant UI updates when managing favorites
+
+### 🎨 User Experience
+- **Responsive Design**: Optimized for desktop, tablet, and mobile
+- **Angular Material**: Modern Material Design components
+- **Dark Theme**: Elegant dark gradient background
+- **Crimson Pro Font**: Professional typography for headers
+- **Interactive Dialogs**: Modal windows for detailed information
+
+## 🛠️ Technical Stack
+
+### Frontend
+- **Angular 20**: Latest Angular framework with standalone components
+- **TypeScript**: Type-safe development
+- **Angular Material**: UI component library
+- **RxJS**: Reactive programming for API calls
+- **SCSS**: Advanced styling with CSS Grid and Flexbox
+
+### Backend Integration
+- **RESTful API**: Communication with Node.js/Express backend
+- **JWT Authentication**: Secure token-based authentication
+- **CORS Handling**: Cross-origin resource sharing
+- **Error Handling**: Comprehensive error management
+
+### Deployment
+- **GitHub Pages**: Static site hosting
+- **Angular CLI**: Build optimization and deployment
+- **Responsive Design**: Mobile-first approach
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- Angular CLI (`npm install -g @angular/cli`)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Jonnits/MovieMinded-Angular-client.git
+   cd MovieMinded-Angular-client
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   ng serve
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:4200/`
+
+### Building for Production
 
 ```bash
-ng serve
+ng build --configuration production
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 📱 Usage
 
-## Code scaffolding
+1. **Welcome Page**: Register a new account or log in with existing credentials
+2. **Movie Catalog**: Browse movies, view details, and add to favorites
+3. **User Profile**: Manage your account settings and view favorite movies
+4. **Logout**: Securely end your session
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🏗️ Project Structure
 
-```bash
-ng generate component component-name
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── movie-card/          # Movie display and interaction
+│   │   ├── user-profile/        # User account management
+│   │   ├── welcome-page/        # Landing page with auth
+│   │   └── dialogs/             # Modal components
+│   ├── services/
+│   │   └── fetch-api-data.service.ts  # API communication
+│   ├── app.routes.ts            # Application routing
+│   └── app.config.ts           # App configuration
+└── styles.scss                  # Global styles
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🔧 Key Components
 
-```bash
-ng generate --help
-```
+### Movie Card Component
+- Displays movie thumbnails with hover effects
+- Interactive buttons for genre, director, and synopsis
+- Favorites management with real-time updates
+- Responsive grid layout
 
-## Building
+### User Profile Component
+- Profile editing with password confirmation
+- Account deletion with security prompts
+- Favorites management
+- Logout functionality
 
-To build the project run:
+### Authentication System
+- Secure login/logout flow
+- JWT token management
+- Protected routes
+- Session persistence
 
-```bash
-ng build
-```
+## 🌐 API Integration
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The application connects to a RESTful API with the following endpoints:
+- `POST /users` - User registration
+- `POST /login` - User authentication
+- `GET /movies` - Fetch all movies
+- `GET /users/:username/movies` - Get user favorites
+- `POST /users/:username/movies/:movieTitle` - Add to favorites
+- `DELETE /users/:username/movies/:movieTitle` - Remove from favorites
 
-## Running unit tests
+## 🎯 Key Features Implemented
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- ✅ **Modern Angular Architecture**: Standalone components, signals, and latest features
+- ✅ **Responsive Design**: Mobile-first approach with CSS Grid
+- ✅ **Material Design**: Professional UI with Angular Material
+- ✅ **Authentication Flow**: Complete login/logout system
+- ✅ **State Management**: Local storage for user sessions
+- ✅ **Error Handling**: Comprehensive error management
+- ✅ **Type Safety**: Full TypeScript implementation
+- ✅ **Performance**: Optimized builds and lazy loading
 
-```bash
-ng test
-```
+## 📄 License
 
-## Running end-to-end tests
+This project is part of a full-stack development portfolio demonstrating modern web development practices.
 
-For end-to-end (e2e) testing, run:
+## 👨‍💻 Developer
 
-```bash
-ng e2e
-```
+**Jon** - Full-Stack Developer
+- GitHub: [@Jonnits](https://github.com/Jonnits)
+- Live Demo: [MovieMinded Angular Client](https://jonnits.github.io/MovieMinded-Angular-client/)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+*Built with ❤️ using Angular 20, TypeScript, and Angular Material*
