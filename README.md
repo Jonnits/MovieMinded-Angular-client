@@ -94,23 +94,6 @@ ng build --configuration production
 3. **User Profile**: Manage your account settings and view favorite movies
 4. **Logout**: Securely end your session
 
-## 🏗️ Project Structure
-
-```
-src/
-├── app/
-│   ├── components/
-│   │   ├── movie-card/          # Movie display and interaction
-│   │   ├── user-profile/        # User account management
-│   │   ├── welcome-page/        # Landing page with auth
-│   │   └── dialogs/             # Modal components
-│   ├── services/
-│   │   └── fetch-api-data.service.ts  # API communication
-│   ├── app.routes.ts            # Application routing
-│   └── app.config.ts           # App configuration
-└── styles.scss                  # Global styles
-```
-
 ## 🔧 Key Components
 
 ### Movie Card Component
@@ -130,16 +113,6 @@ src/
 - JWT token management
 - Protected routes
 - Session persistence
-
-## 🌐 API Integration
-
-The application connects to a RESTful API with the following endpoints:
-- `POST /users` - User registration
-- `POST /login` - User authentication
-- `GET /movies` - Fetch all movies
-- `GET /users/:username/movies` - Get user favorites
-- `POST /users/:username/movies/:movieTitle` - Add to favorites
-- `DELETE /users/:username/movies/:movieTitle` - Remove from favorites
 
 ## 🎯 Key Features Implemented
 
