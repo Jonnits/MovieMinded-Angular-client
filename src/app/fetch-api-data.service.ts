@@ -3,24 +3,41 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-//Declaring the api url that will provide data for the client app
+/**
+ * API URL for the MovieMinded backend service
+ */
 const apiUrl = 'https://movieminded-d764560749d0.herokuapp.com/';
+
+/**
+ * Service for handling all API calls to the MovieMinded backend
+ * Provides methods for user authentication, movie data retrieval, and user profile management
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class FetchApiDataService {
-  // Inject the HttpClient module to the constructor params
- // This will provide HttpClient to the entire class, making it available via this.http
+  /**
+   * Creates an instance of FetchApiDataService
+   * @param http - Angular HttpClient for making HTTP requests
+   */
   constructor(private http: HttpClient) {
   }
-  // Making the api call for the user registration endpoint
+  /**
+   * Registers a new user with the MovieMinded service
+   * @param userDetails - Object containing user registration data (username, password, email, birthday)
+   * @returns Observable containing the registration response
+   */
   public userRegistration(userDetails: any): Observable<any> {
     return this.http.post(apiUrl + 'users', userDetails).pipe(
       catchError(this.handleError)
     );
   }
 
-  // User login
+  /**
+   * Authenticates a user and returns a JWT token
+   * @param userDetails - Object containing login credentials (username, password)
+   * @returns Observable containing user data and authentication token
+   */
   public userLogin(userDetails: any): Observable<any> {
     return this.http.post(apiUrl + 'login', userDetails).pipe(
       map(this.extractResponseData),
@@ -28,7 +45,10 @@ export class FetchApiDataService {
     );
   }
 
-  // Get all movies
+  /**
+   * Retrieves all movies from the MovieMinded database
+   * @returns Observable containing array of movie objects
+   */
   public getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {
@@ -174,13 +194,24 @@ export class FetchApiDataService {
     );
   }
 
-  // Non-typed response extraction
+  /**
+   * Extracts response data from HTTP responses
+   * @param res - HTTP response object
+   * @returns Extracted response data or empty object
+   * @private
+   */
   private extractResponseData(res: any): any {
     const body = res;
     return body || { };
   }
 
-private handleError(error: HttpErrorResponse): any {
+  /**
+   * Handles HTTP errors and provides user-friendly error messages
+   * @param error - HttpErrorResponse object containing error details
+   * @returns Observable that throws an error with appropriate message
+   * @private
+   */
+  private handleError(error: HttpErrorResponse): any {
     console.error('HTTP Error:', error);
     
     if (error.error instanceof ErrorEvent) {
