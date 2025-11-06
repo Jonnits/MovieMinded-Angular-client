@@ -53,6 +53,11 @@ vendor-*.js
 # Development configuration
 proxy.conf.json
 
+# TypeScript configuration (optional - keep if you want them visible)
+tsconfig.json
+tsconfig.app.json
+tsconfig.spec.json
+
 # GitHub Pages
 .nojekyll
 404.html
