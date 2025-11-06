@@ -40,3 +40,21 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular build artifacts (may appear in root during deployment)
+chunk-*.js
+main-*.js
+styles-*.css
+polyfills-*.js
+runtime-*.js
+vendor-*.js
+*.bundle.js
+
+# Development configuration
+proxy.conf.json
+
+# GitHub Pages
+.nojekyll
+404.html
+
+# Note: dist/ is already ignored above

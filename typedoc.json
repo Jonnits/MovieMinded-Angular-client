@@ -1,0 +1,38 @@
+{
+  "entryPoints": ["src/app/**/*.ts"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "name": "MovieMinded Angular Client",
+  "includeVersion": true,
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "theme": "default",
+  "readme": "README.md",
+  "tsconfig": "tsconfig.app.json",
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Services",
+    "Components", 
+    "Interfaces",
+    "Types",
+    "Other"
+  ],
+  "sort": ["source-order"],
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace", 
+    "Enum",
+    "Class",
+    "Interface",
+    "Constructor",
+    "Property",
+    "Variable",
+    "Function",
+    "Accessor",
+    "Method"
+  ]
+}
